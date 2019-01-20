@@ -5,8 +5,6 @@ import numpy as np
 import sklearn.preprocessing
 import sklearn.base
 
-
-
 #%%
 def timeit(method):
     """ Decorator to time execution of transformers
@@ -25,7 +23,6 @@ def timeit(method):
         return result
     return timed
 
-
 #%%
 class TransformerLog():
     """Add a .log attribute for logging
@@ -33,8 +30,6 @@ class TransformerLog():
     @property
     def log(self):
         return "Transformer: {}".format(type(self).__name__)
-
-
 
 # %%==============================================================================
 # Empty
@@ -142,7 +137,6 @@ class WordCounter(sk.base.BaseEstimator, sk.base.TransformerMixin, TransformerLo
         print(self.log, self.new_col_name)
         return df
 
-
 #%% =============================================================================
 # ConvertToDatetime
 # ===============================================================================
@@ -161,8 +155,6 @@ class ConvertToDatetime(sk.base.BaseEstimator, sk.base.TransformerMixin, Transfo
         df[self.time_col_name] = pd.to_datetime(df[self.time_col_name], unit=self.unit)
         print("Transformer:", type(self).__name__, "converted", self.time_col_name, "to dt")
         return df
-
-
 
 #%% =============================================================================
 # TimeProperty
@@ -196,8 +188,6 @@ class TimeProperty(sk.base.BaseEstimator, sk.base.TransformerMixin, TransformerL
             raise
         print("Transformer:", type(self).__name__, original_shape, "->", df.shape, vars(self))
         return df
-
-
 # Debug:
 # df = X_train
 # time_col_name = 'question_utc'
@@ -208,18 +198,6 @@ class TimeProperty(sk.base.BaseEstimator, sk.base.TransformerMixin, TransformerL
 # time_property = 'month'
 # time_adder = TimeProperty(time_col_name,new_col_name,time_property)
 # res=time_adder.transform(df)
-#
-
-
-
-
-
-
-
-
-
-
-
 
 #%% =============================================================================
 # DEPRECIATED - AnswerDelay
@@ -247,7 +225,6 @@ class AnswerDelay(sk.base.BaseEstimator, sk.base.TransformerMixin, TransformerLo
 # new_col_name = 'answer_delay_seconds'
 # answer_delay_adder = AnswerDelay(new_col_name)
 # res=answer_delay_adder.transform(df)
-#
 
 #%% =============================================================================
 # ValueCounter
@@ -270,7 +247,6 @@ class ValueCounter(sk.base.BaseEstimator, sk.base.TransformerMixin, TransformerL
         selected_df_col.columns = [self.col_name, self.col_name + '_counts']
         print(self.log)
         return pd.merge(selected_df_col, df, on=self.col_name)
-
 
 # %%=============================================================================
 # DEPRECIATED ConvertDoubleColToDatetime
