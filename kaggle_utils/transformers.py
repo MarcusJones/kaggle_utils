@@ -86,9 +86,8 @@ class MultipleToNewFeature(sk.base.BaseEstimator, sk.base.TransformerMixin, Tran
     @timeit
     def transform(self, df, y=None):
         # print(df)
-        start = time.time()
         df[self.new_col_name] = df.apply(self.func, axis=1)
-        print(self.log, time.time() - start,"{}({}) -> ['{}']".format(self.func.__name__,self.selected_cols,self.new_col_name))
+        print(self.log, "{}({}) -> ['{}']".format(self.func.__name__,self.selected_cols,self.new_col_name))
         return df
 
 # %%==============================================================================
