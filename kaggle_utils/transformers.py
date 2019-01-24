@@ -104,8 +104,9 @@ class NumericalToCat(sk.base.BaseEstimator, sk.base.TransformerMixin, Transforme
         assert type(this_series) == pd.Series
         assert this_series.name in self.label_map_dict, "{} not in label map!".format(this_series.Name)
         return_series = this_series.copy()
-        return_series = return_series.astype('category')
-        return_series.cat.rename_categories(self.label_map_dict[return_series.name], inplace=True)
+        return_series = pd.Series(pd.Categorical.from_codes(this_series, self.label_map_dict))
+        # return_series = return_series.astype('category')
+        # return_series.cat.rename_categories(self.label_map_dict[return_series.name], inplace=True)
         print(self.log, return_series.cat.categories)
 
         assert return_series.dtype == 'category'
