@@ -4,6 +4,7 @@ import time
 import numpy as np
 import sklearn.preprocessing
 import sklearn.base
+from sklearn.base import BaseEstimator, TransformerMixin
 
 #%%
 def timeit(method):
@@ -31,10 +32,22 @@ class TransformerLog():
     def log(self):
         return "Transformer: {}".format(type(self).__name__)
 
+#%%
+class TypeSelector(BaseEstimator, TransformerMixin):
+    def __init__(self, dtype):
+        self.dtype = dtype
+
+    def fit(self, df, y=None):
+        return self
+
+    def transform(self, df):
+        assert isinstance(df, pd.DataFrame)
+        return df.select_dtypes(include=[self.dtype])
+
 # %%==============================================================================
 # Empty
 # ===============================================================================
-class Empty(sk.base.BaseEstimator, sk.base.TransformerMixin, TransformerLog):
+class Empty(BaseEstimator, TransformerMixin, TransformerLog):
     """An empty transformer
     """
 
