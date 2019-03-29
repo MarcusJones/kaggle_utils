@@ -13,18 +13,32 @@ from collections import defaultdict
 import json
 import yaml
 import inspect
+import h5py
+
+#%% ===========================================================================
+# Utilities
+# =============================================================================
+import kaggle_utils
 
 #%% ===========================================================================
 # Scientific stack
 # =============================================================================
 import numpy as np
-print('numpy', np.__version__)
 import pandas as pd
-print('pandas', pd.__version__)
 import sklearn as sk
-print('sklearn', sk.__version__)
+import matplotlib as mpl
 
-# Setup sklearn imports
+logging.info("{:>10}=={} as {}".format('numpy', np.__version__, 'np'))
+logging.info("{:>10}=={} as {}".format('pandas', pd.__version__, 'pd'))
+logging.info("{:>10}=={} as {}".format('sklearn', sk.__version__, 'sk'))
+logging.info("{:>10}=={} as {}".format('matplotlib', mpl.__version__, 'mpl'))
+
+# Load import paths for matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.image as mplimg
+from matplotlib.pyplot import imshow
+
+# Load import paths for sklearn
 import sklearn.preprocessing
 import sklearn.model_selection
 import sklearn.metrics
@@ -37,21 +51,27 @@ import sklearn.decomposition
 import sklearn.compose
 import sklearn.utils
 
+#%% ===========================================================================
+# Other scientific stack libraries
+# =============================================================================
+from sklearn_pandas import DataFrameMapper
+
+#%% ===========================================================================
+# Natural Langauge Processing
+# =============================================================================
+# import nltk
+# from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+# from nltk.corpus import stopwords
 
 
-
-
-
+#%% ===========================================================================
+# Deep learning
+# =============================================================================
 # Keras
 from keras.models import Model
 from keras.layers import GlobalAveragePooling2D, Input, Lambda, AveragePooling1D
 import keras.backend as K
 
-# import nltk
-# from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-# from nltk.corpus import stopwords
-
-from sklearn_pandas import DataFrameMapper
 
 # Models
 import lightgbm as lgb
