@@ -24,6 +24,26 @@ def timeit(method):
         return result
     return timed
 
+
+#%%
+class UtilityMixin:
+    @property
+    def log(self):
+        return "Transformer: {}".format(type(self).__name__)
+
+    def _check_if_all_columns_present(self, x):
+        if not self.inverse and self.columns is not None:
+            missing_columns = set(self.columns) - set(x.columns)
+            if len(missing_columns) > 0:
+                missing_columns_ = ','.join(col for col in missing_columns)
+                raise KeyError(
+                    "Keys are missing in the record: {}, columns required:{}".format(missing_columns_, self.columns))
+
+    def _assert_df(self):
+        if not isinstance(df, pd.DataFrame):
+            raise KeyError("Input is not a pandas DataFrame it's a {}".format(type(df)))
+
+
 #%%
 class TransformerLog():
     """Add a .log attribute for logging
